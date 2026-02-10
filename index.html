@@ -5,106 +5,92 @@
 <title>Valentine Surprise</title>
 
 <style>
-    body {
-        margin: 0;
-        height: 100vh;
-        background: linear-gradient(135deg, #ff758c, #ff7eb3);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: 'Segoe UI', sans-serif;
-        overflow: hidden;
-    }
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
 
-    .card {
-        background: white;
-        padding: 40px;
-        border-radius: 25px;
-        text-align: center;
-        box-shadow: 0 30px 60px rgba(0,0,0,0.25);
-        max-width: 420px;
-        width: 90%;
-        position: absolute;
-        z-index: 2;
-    }
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    position: relative;
+    z-index: 5;
+}
 
-    h1 {
-        color: #ff2f6d;
-        margin-bottom: 15px;
-    }
+h1 {
+    color: #ff2f6d;
+    margin-bottom: 10px;
+}
 
-    h2 {
-        color: #444;
-        margin-bottom: 20px;
-    }
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
 
-    .buttons {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 30px;
-        position: relative;
-    }
+.buttons {
+    position: relative;
+    height: 60px;
+}
 
-    button {
-        padding: 12px 30px;
-        font-size: 18px;
-        border-radius: 30px;
-        border: none;
-        cursor: pointer;
-    }
+button {
+    padding: 12px 28px;
+    font-size: 18px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+}
 
-    #yes {
-        background: #ff2f6d;
-        color: white;
-    }
+#yes {
+    background: #ff2f6d;
+    color: white;
+    position: absolute;
+    left: 20px;
+}
 
-    #no {
-        background: #e0e0e0;
-        color: #333;
-        position: absolute;
-        right: 0;
-    }
+#no {
+    background: #ddd;
+    position: absolute;
+    right: 20px;
+}
 
-    /* Celebration page */
-    #celebrationPage {
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        animation: fadeIn 1s ease;
-        z-index: 5;
-    }
+/* Celebration */
+#celebration {
+    display: none;
+}
 
-    #celebrationPage img {
-        width: 100%;
-        border-radius: 20px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-        margin-top: 15px;
-    }
+#celebration img {
+    width: 100%;
+    margin-top: 15px;
+    border-radius: 15px;
+}
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: scale(0.95); }
-        to { opacity: 1; transform: scale(1); }
-    }
+.heart, .popper {
+    position: absolute;
+    font-size: 22px;
+    animation: floatUp 4s linear infinite;
+}
 
-    .heart, .popper {
-        position: absolute;
-        font-size: 22px;
-        animation: floatUp 4s linear infinite;
-        z-index: 1;
-    }
-
-    @keyframes floatUp {
-        0% { transform: translateY(0); opacity: 1; }
-        100% { transform: translateY(-900px); opacity: 0; }
-    }
+@keyframes floatUp {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-900px); opacity: 0; }
+}
 </style>
 </head>
 
 <body>
 
-<!-- QUESTION PAGE -->
-<div class="card" id="questionPage">
+<div class="card" id="question">
     <h1>Esha Joshi 💖</h1>
     <h2>Will you be my Valentine?</h2>
 
@@ -114,43 +100,41 @@
     </div>
 </div>
 
-<!-- CELEBRATION PAGE -->
-<div class="card" id="celebrationPage">
+<div class="card" id="celebration">
     <h1>🎉 Congratulations! 🎉</h1>
     <h2>You have made a great choice ❤️</h2>
     <img src="us.jpg" alt="Us Together">
 </div>
 
 <script>
-    const noBtn = document.getElementById("no");
-    const yesBtn = document.getElementById("yes");
-    const questionPage = document.getElementById("questionPage");
-    const celebrationPage = document.getElementById("celebrationPage");
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+const question = document.getElementById("question");
+const celebration = document.getElementById("celebration");
 
-    noBtn.addEventListener("mouseover", () => {
-        const x = Math.random() * 200;
-        const y = Math.random() * 60;
-        noBtn.style.transform = `translate(${x}px, ${y}px)`;
-    });
+noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * 200;
+    const y = Math.random() * 50;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+});
 
-    yesBtn.addEventListener("click", () => {
-        questionPage.style.display = "none";
-        celebrationPage.style.display = "flex";
-        startCelebration();
-    });
+yesBtn.addEventListener("click", () => {
+    question.style.display = "none";
+    celebration.style.display = "block";
+    startCelebration();
+});
 
-    function startCelebration() {
-        setInterval(() => {
-            const item = document.createElement("div");
-            item.className = Math.random() > 0.5 ? "heart" : "popper";
-            item.innerHTML = Math.random() > 0.5 ? "❤️" : "🎉";
-            item.style.left = Math.random() * window.innerWidth + "px";
-            item.style.bottom = "0px";
-            document.body.appendChild(item);
-
-            setTimeout(() => item.remove(), 4000);
-        }, 200);
-    }
+function startCelebration() {
+    setInterval(() => {
+        const el = document.createElement("div");
+        el.className = Math.random() > 0.5 ? "heart" : "popper";
+        el.innerHTML = Math.random() > 0.5 ? "❤️" : "🎉";
+        el.style.left = Math.random() * window.innerWidth + "px";
+        el.style.bottom = "0";
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 4000);
+    }, 250);
+}
 </script>
 
 </body>
