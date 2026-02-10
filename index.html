@@ -112,10 +112,15 @@
 </div>
 
 <div class="card celebration" id="celebrationPage">
-    <h1>🎉 Congratulations! 🎉</h1>
-    <h2>You have made a great choice ❤️</h2>
-    <img src="us.jpg">
+    <h1 style="font-size:28px; color:#ff2f6d;">
+        🎉 Congratulations! 🎉
+    </h1>
+    <h2 style="font-size:20px; color:#333;">
+        You have made a great choice ❤️
+    </h2>
+    <img src="us.jpg" alt="Us Together">
 </div>
+
 
 <script>
     const noBtn = document.getElementById("no");
@@ -130,10 +135,12 @@
     });
 
     yesBtn.addEventListener("click", () => {
-        questionPage.style.display = "none";
-        celebrationPage.style.display = "flex";
-        startCelebration();
-    });
+    questionPage.style.display = "none";
+    celebrationPage.style.display = "flex";
+    celebrationPage.style.opacity = "1";
+    celebrationPage.style.zIndex = "10";
+    startCelebration();
+});
 
     function startCelebration() {
         setInterval(() => {
